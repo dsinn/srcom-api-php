@@ -47,7 +47,15 @@ class VariableValueSet extends BaseData
         return $this;
     }
 
-    protected function getRequiredFields(): array
+    protected static function getDeprecatedFields(): array
+    {
+        return [
+            '_note',
+            'choices',
+        ];
+    }
+
+    protected static function getRequiredFields(): array
     {
         return [
             'values',

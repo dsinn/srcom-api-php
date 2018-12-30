@@ -10,7 +10,7 @@ class VariableValue extends BaseData
     /** @var string */
     private $rules;
 
-    public function getFlags(): VariableValueFlags
+    public function getFlags(): ?VariableValueFlags
     {
         return $this->flags;
     }
@@ -20,7 +20,7 @@ class VariableValue extends BaseData
         return $this->label;
     }
 
-    public function getRules(): string
+    public function getRules(): ?string
     {
         return $this->rules;
     }
@@ -37,13 +37,13 @@ class VariableValue extends BaseData
         return $this;
     }
 
-    public function setRules(string $rules): self
+    public function setRules(?string $rules): self
     {
         $this->rules = $rules;
         return $this;
     }
 
-    protected function getRequiredFields(): array
+    protected static function getRequiredFields(): array
     {
         return [
             'label',

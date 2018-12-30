@@ -8,11 +8,11 @@ class BaseData
     public function __construct(array $data)
     {
         assert(
-            !($missingKeys = array_diff_key(array_flip($this->getRequiredFields()), $data)),
+            !($missingKeys = array_diff_key(array_flip(self::getRequiredFields()), $data)),
             'Missing the following required fields: ' . implode(',', $missingKeys)
         );
 
-        foreach ($data as $key => $value) {
+        foreach (array_diff_key($data, array_flip(self::getDeprecatedFields())) as $key => $value) {
             $this->{'set' . $this->camelize($key)}($value);
         }
     }
@@ -57,10 +57,15 @@ class BaseData
         return $key;
     }
 
+    protected static function getDeprecatedFields(): array
+    {
+        return [];
+    }
+
     /**
      * @return string[]
      */
-    protected function getRequiredFields(): array
+    protected static function getRequiredFields(): array
     {
         return [];
     }

@@ -114,7 +114,7 @@ class Category extends BaseData
         return $this;
     }
 
-    protected function getRequiredFields(): array
+    protected static function getRequiredFields(): array
     {
         return [
             'id',

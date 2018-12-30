@@ -5,18 +5,18 @@ class VariableValueFlags extends BaseData
 {
     private $miscellaneous;
 
-    public function getMiscellaneous(): bool
+    public function getMiscellaneous(): ?bool
     {
         return $this->miscellaneous;
     }
 
-    public function setMiscellaneous(bool $miscellaneous): self
+    public function setMiscellaneous(?bool $miscellaneous): self
     {
         $this->miscellaneous = $miscellaneous;
         return $this;
     }
 
-    protected function getRequiredFields(): array
+    protected static function getRequiredFields(): array
     {
         return [
             'miscellaneous',

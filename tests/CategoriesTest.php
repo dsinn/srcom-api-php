@@ -57,4 +57,113 @@ JSON
             'runs' => 'https://www.speedrun.com/api/v1/runs?category=jkh473tf',
         ], $category->getLinks()->getAll());
     }
+
+    public function testGetVariables()
+    {
+        $client = $this->getClient(<<<JSON
+{
+  "data":[
+    {
+      "id":"ylpm6vlg",
+      "name":"cc",
+      "category":null,
+      "scope":{
+        "type":"full-game"
+      },
+      "mandatory":true,
+      "user-defined":false,
+      "obsoletes":true,
+      "values":{
+        "_note":"`choices` is deprecated, please use `values` instead",
+        "choices":{
+          "p12z6d1x":"150cc",
+          "z19rjy14":"200cc"
+        },
+        "values":{
+          "p12z6d1x":{
+            "label":"150cc",
+            "rules":null,
+            "flags":{
+              "miscellaneous":null
+            }
+          },
+          "z19rjy14":{
+            "label":"200cc",
+            "rules":null,
+            "flags":{
+              "miscellaneous":null
+            }
+          }
+        },
+        "default":"p12z6d1x"
+      },
+      "is-subcategory":true,
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/variables/ylpm6vlg"
+        },
+        {
+          "rel":"game",
+          "uri":"https://www.speedrun.com/api/v1/games/kyd4pxde"
+        }
+      ]
+    },
+    {
+      "id":"p85033ng",
+      "name":"Version",
+      "category":null,
+      "scope":{
+        "type":"global"
+      },
+      "mandatory":true,
+      "user-defined":false,
+      "obsoletes":true,
+      "values":{
+        "_note":"`choices` is deprecated, please use `values` instead",
+        "choices":{
+          "21gn27ol":"Disc (NTSC)",
+          "jqznxdkq":"Disc (PAL)",
+          "klr3ymwl":"Digital (Internal)",
+          "21dk3wgl":"Digital (SSD)"
+        },
+        "values":{
+          "21gn27ol":{
+            "label":"Disc (NTSC)"
+          },
+          "jqznxdkq":{
+            "label":"Disc (PAL)"
+          },
+          "klr3ymwl":{
+            "label":"Digital (Internal)"
+          },
+          "21dk3wgl":{
+            "label":"Digital (SSD)"
+          }
+        },
+        "default":null
+      },
+      "is-subcategory":false,
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/variables/p85033ng"
+        },
+        {
+          "rel":"game",
+          "uri":"https://www.speedrun.com/api/v1/games/kyd4pxde"
+        }
+      ]
+    }
+  ]
+}
+JSON
+);
+        $variables = $client->categories()->getVariables('foo');
+
+        self::assertSame('ylpm6vlg', $variables[0]->getId());
+        self::assertSame('cc', $variables[0]->getName());
+        self::assertSame('p85033ng', $variables[1]->getId());
+        self::assertSame('Version', $variables[1]->getName());
+    }
 }
