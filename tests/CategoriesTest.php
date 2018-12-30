@@ -3,18 +3,15 @@ namespace Dsinn\SrcomApi\Tests;
 
 use Dsinn\SrcomApi\Client\DataTypes\Category;
 use Dsinn\SrcomApi\Client\DataTypes\PlayerCount;
-use PHPUnit\Framework\MockObject\MockObject;
 
-class CategoriesTest extends \PHPUnit\Framework\TestCase
+class CategoriesTest extends TestCase
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testGet()
     {
-        /** @var \GuzzleHttp\Client|MockObject $mockHttpClient */
-        $mockHttpClient = $this->createMock(\GuzzleHttp\Client::class);
-        $mockHttpClient->method('request')->willReturn(json_decode(<<<JSON
+        $client = $this->getClient(<<<JSON
 {
   "data": {
     "id": "jkh473tf",
@@ -43,9 +40,9 @@ class CategoriesTest extends \PHPUnit\Framework\TestCase
   }
 }
 JSON
-, true));
-        $apiClient = new \Dsinn\SrcomApi\Client($mockHttpClient);
-        $category = $apiClient->categories()->get('foo');
+        );
+        $category = $client->categories()->get('foo');
+
         self::assertSame('jkh473tf', $category->getId());
         self::assertSame('Any%', $category->getName());
         self::assertSame(Category::TYPE_PER_GAME, $category->getType());
