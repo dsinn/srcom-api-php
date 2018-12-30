@@ -13,7 +13,7 @@ class BaseData
         );
 
         foreach ($data as $key => $value) {
-            $this->{'set' . $key}($value);
+            $this->{'set' . $this->camelize($key)}($value);
         }
     }
 
@@ -25,7 +25,7 @@ class BaseData
      */
     public function __call(string $name, array $arguments)
     {
-        $field = $this->uncapitalize(substr($name, 3));
+        $field = $this->camelize(substr($name, 3));
 
         if (strpos($name, 'set') === 0) {
             assert(count($arguments) === 1, 'A set method call requires exactly one argument.');
@@ -56,8 +56,13 @@ class BaseData
         return [];
     }
 
-    private function uncapitalize(string $upperCamelCaseString): string
+    private function camelize(string $responseKey): string
     {
-        return preg_replace_callback('/^([A-Z])(?=[a-z])/', 'strtolower', $upperCamelCaseString);
+        $s = preg_replace_callback('/^([A-Z])(?=[a-z])/', 'strtolower', $responseKey);
+        $s = preg_replace_callback('/-(.)/', function (array $matches) {
+            return strtoupper($matches[1]);
+        }, $s);
+
+        return $s;
     }
 }
