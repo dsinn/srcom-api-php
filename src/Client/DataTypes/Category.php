@@ -8,7 +8,7 @@ class Category extends BaseData
 
     /** @var string */
     private $id;
-    /** @var string[] */
+    /** @var Links */
     private $links = [];
     /** @var bool */
     private $miscellaneous;
@@ -28,7 +28,7 @@ class Category extends BaseData
         return $this->id;
     }
 
-    public function getLinks(): array
+    public function getLinks(): Links
     {
         return $this->links;
     }
@@ -69,11 +69,9 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setLinks(array $links): self
+    public function setLinks(array $linkData): self
     {
-        foreach ($links as $link) {
-            $this->links[$link['rel']] = $link['uri'];
-        }
+        $this->links = new Links($linkData);
         return $this;
     }
 
@@ -101,9 +99,9 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setType(string $type): self
+    public function setType(string $typeString): self
     {
-        $this->type = $this->getStringMappingResult($type, [
+        $this->type = $this->getStringMappingResult($typeString, [
             'per-game' => self::TYPE_PER_GAME,
             'per-level' => self::TYPE_PER_LEVEL,
         ]);
@@ -118,6 +116,15 @@ class Category extends BaseData
 
     protected function getRequiredFields(): array
     {
-        return ['id', 'name', 'weblink', 'type', 'rules', 'players', 'miscellaneous', 'links'];
+        return [
+            'id',
+            'name',
+            'weblink',
+            'type',
+            'rules',
+            'players',
+            'miscellaneous',
+            'links'
+        ];
     }
 }

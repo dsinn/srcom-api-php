@@ -1,5 +1,5 @@
 <?php
-namespace Dsinn\SrcomApi\Client\Getter;
+namespace Dsinn\SrcomApi\Client\Getters;
 
 use Dsinn\SrcomApi\Client\DataTypes\Category;
 

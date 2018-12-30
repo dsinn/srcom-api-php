@@ -1,7 +1,8 @@
 <?php
 namespace Dsinn\SrcomApi;
 
-use Dsinn\SrcomApi\Client\Getter\Categories;
+use Dsinn\SrcomApi\Client\Getters\Categories;
+use Dsinn\SrcomApi\Client\Getters\Variables;
 use GuzzleHttp\ClientInterface;
 
 class Client
@@ -16,8 +17,18 @@ class Client
         $this->objectCache = [];
     }
 
-    public function categories()
+    public function categories(): Categories
     {
-        return $objectCache['categories'] ?? ($objectCache['categories'] = new Categories($this->httpClient));
+        return $this->getObject('categories', Categories::class);
+    }
+
+    public function variables(): Variables
+    {
+        return $this->getObject('variables', Variables::class);
+    }
+
+    private function getObject(string $key, string $class)
+    {
+        return $objectCache[$key] ?? ($objectCache[$key] = new $class($this->httpClient));
     }
 }

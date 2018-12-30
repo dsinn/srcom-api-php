@@ -55,6 +55,6 @@ JSON
             'game' => 'https://www.speedrun.com/api/v1/games/i2grf78a',
             'variables' => 'https://www.speedrun.com/api/v1/games/i2grf78a/variables',
             'runs' => 'https://www.speedrun.com/api/v1/runs?category=jkh473tf',
-        ], $category->getLinks());
+        ], $category->getLinks()->getAll());
     }
 }

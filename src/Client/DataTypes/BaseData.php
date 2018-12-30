@@ -28,11 +28,20 @@ class BaseData
         $field = $this->camelize(substr($name, 3));
 
         if (strpos($name, 'set') === 0) {
-            assert(count($arguments) === 1, 'A set method call requires exactly one argument.');
+            assert(
+                count($arguments) === 1,
+                new \BadMethodCallException('A set method call requires exactly one argument.')
+            );
             $this->unexpectedData[$field] = $arguments[0];
         } elseif (strpos($name, 'get') === 0) {
-            assert(count($arguments) === 0, 'A get method call cannot have arguments.');
-            assert(array_key_exists($field, $this->unexpectedData), "Field \"{$field}\" not set.");
+            assert(
+                count($arguments) === 0,
+                new \BadMethodCallException('A get method call cannot have arguments.')
+            );
+            assert(
+                array_key_exists($field, $this->unexpectedData),
+                new \UnexpectedValueException("Field \"{$field}\" not set.")
+            );
         } else {
             throw new \BadMethodCallException("Call to undefined method \"{$name}\".");
         }

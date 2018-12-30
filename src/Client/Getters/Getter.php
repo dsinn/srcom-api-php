@@ -1,5 +1,5 @@
 <?php
-namespace Dsinn\SrcomApi\Client\Getter;
+namespace Dsinn\SrcomApi\Client\Getters;
 
 use GuzzleHttp\ClientInterface;
 
