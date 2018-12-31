@@ -77,6 +77,16 @@ class BaseData
         return strpos($name, 'set') === 0;
     }
 
+    protected function parseDate(string $dateString): \DateTime
+    {
+        return \DateTime::createFromFormat('Y-m-d', $dateString);
+    }
+
+    protected function parseDateTime(string $dateTimeString): \DateTime
+    {
+        return \DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $dateTimeString);
+    }
+
     private function camelize(string $responseKey): string
     {
         $s = preg_replace_callback('/^[A-Z](?=[a-z])/', function (array $matches) {

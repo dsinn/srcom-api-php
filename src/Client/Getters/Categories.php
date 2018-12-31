@@ -2,7 +2,9 @@
 namespace Dsinn\SrcomApi\Client\Getters;
 
 use Dsinn\SrcomApi\Client\DataTypes\Category;
+use Dsinn\SrcomApi\Client\DataTypes\Leaderboard;
 use Dsinn\SrcomApi\Client\DataTypes\Variable;
+use Dsinn\SrcomApi\Client\Pagination;
 
 class Categories extends Getter
 {
@@ -43,5 +45,26 @@ class Categories extends Getter
             "/categories/{$id}/variables",
             ['query' => compact('orderby', 'direction')]
         )['data']);
+    }
+
+    /**
+     * @param string $id
+     * @param int $top
+     * @param bool $skipEmpty
+     * @param Pagination|null $pagination
+     * @return Leaderboard[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getRecords(string $id, int $top = 3, bool $skipEmpty = false, Pagination &$pagination = null)
+    {
+        $response = $this->httpClient->request(
+            'GET',
+            "/categories/{$id}/records",
+            ['query' => compact('top') + ['skip-empty' => $skipEmpty]]
+        );
+
+        return array_map(function (array $leaderboardData) {
+            return new Leaderboard($leaderboardData);
+        }, $response['data']);
     }
 }
