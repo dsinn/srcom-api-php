@@ -3,15 +3,15 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class PlayerCount extends BaseData
 {
-    const TYPE_EXACTLY = 0;
-    const TYPE_UP_TO = 1;
+    const TYPE_EXACTLY = 'exactly';
+    const TYPE_UP_TO = 'up-to';
 
-    /** @var int */
+    /** @var string */
     private $type;
     /** @var int */
     private $value;
 
-    public function getType(): int
+    public function getType(): string
     {
         return $this->type;
     }
@@ -23,11 +23,7 @@ class PlayerCount extends BaseData
 
     public function setType(string $type): self
     {
-        $this->type = $this->getStringMappingResult($type, [
-            'exactly' => self::TYPE_EXACTLY,
-            'up-to' => self::TYPE_UP_TO,
-        ]);
-
+        $this->type = $type;
         return $this;
     }
 

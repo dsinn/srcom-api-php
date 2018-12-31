@@ -47,16 +47,6 @@ class BaseData
         }
     }
 
-    protected function getStringMappingResult(string $key, array $map)
-    {
-        if (array_key_exists($key, $map)) {
-            return $map[$key];
-        }
-
-        trigger_error("Key \"{$key}\" not found in the map " . json_encode($map), E_USER_WARNING);
-        return $key;
-    }
-
     protected static function getDeprecatedFields(): array
     {
         return [];

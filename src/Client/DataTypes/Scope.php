@@ -3,27 +3,22 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class Scope extends BaseData
 {
-    const TYPE_GLOBAL = 0;
-    const TYPE_FULL_GAME = 1;
-    const TYPE_ALL_LEVELS = 2;
-    const TYPE_SINGLE_LEVEL = 3;
+    const TYPE_GLOBAL = 'global';
+    const TYPE_FULL_GAME = 'full-game';
+    const TYPE_ALL_LEVELS = 'all-levels';
+    const TYPE_SINGLE_LEVEL = 'single-level';
 
     /** @var int */
     private $type;
 
-    public function getType(): int
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setType(string $typeString): self
+    public function setType(string $type): self
     {
-        $this->type = $this->getStringMappingResult($typeString, [
-            'global' => self::TYPE_ALL_LEVELS,
-            'full-game' => self::TYPE_FULL_GAME,
-            'all-levels' => self::TYPE_FULL_GAME,
-            'single-level' => self::TYPE_SINGLE_LEVEL,
-        ]);
+        $this->type = $type;
         return $this;
     }
 

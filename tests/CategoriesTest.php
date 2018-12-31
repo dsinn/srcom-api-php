@@ -58,6 +58,9 @@ JSON
         ], $category->getLinks()->getAll());
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testGetVariables()
     {
         $client = $this->getClient(<<<JSON

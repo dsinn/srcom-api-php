@@ -3,8 +3,8 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class Category extends BaseData
 {
-    const TYPE_PER_GAME = 0;
-    const TYPE_PER_LEVEL = 1;
+    const TYPE_PER_GAME = 'per-game';
+    const TYPE_PER_LEVEL = 'per-level';
 
     /** @var string */
     private $id;
@@ -18,7 +18,7 @@ class Category extends BaseData
     private $players;
     /** @var string */
     private $rules;
-    /** @var int */
+    /** @var string */
     private $type;
     /** @var string */
     private $weblink;
@@ -53,7 +53,7 @@ class Category extends BaseData
         return $this->rules;
     }
 
-    public function getType(): int
+    public function getType(): string
     {
         return $this->type;
     }
@@ -99,12 +99,9 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setType(string $typeString): self
+    public function setType(string $type): self
     {
-        $this->type = $this->getStringMappingResult($typeString, [
-            'per-game' => self::TYPE_PER_GAME,
-            'per-level' => self::TYPE_PER_LEVEL,
-        ]);
+        $this->type = $type;
         return $this;
     }
 
