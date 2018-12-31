@@ -3,17 +3,19 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class BaseData
 {
-    private $unexpectedData = [];
+    protected $unexpectedData = [];
 
     public function __construct(array $data)
     {
-        assert(
-            !($missingKeys = array_diff_key(array_flip(self::getRequiredFields()), $data)),
-            'Missing the following required fields: ' . implode(',', $missingKeys)
-        );
+        if ($missingKeys = array_diff_key(array_flip(self::getRequiredFields()), $data)) {
+            trigger_error(
+                'Missing the following required fields: ' . implode(',', $missingKeys),
+                E_USER_WARNING
+            );
+        }
 
         foreach (array_diff_key($data, array_flip(self::getDeprecatedFields())) as $key => $value) {
-            $this->{'set' . $this->camelize($key)}($value);
+            $this->{'set' . ucfirst($this->camelize($key))}($value);
         }
     }
 
@@ -25,15 +27,15 @@ class BaseData
      */
     public function __call(string $name, array $arguments)
     {
-        $field = $this->camelize(substr($name, 3));
+        $field = $this->getFieldFromMethodCallName($name);
 
-        if (strpos($name, 'set') === 0) {
+        if ($this->isSetCall($name)) {
             assert(
                 count($arguments) === 1,
                 new \BadMethodCallException('A set method call requires exactly one argument.')
             );
             $this->unexpectedData[$field] = $arguments[0];
-        } elseif (strpos($name, 'get') === 0) {
+        } elseif ($this->isGetCall($name)) {
             assert(
                 count($arguments) === 0,
                 new \BadMethodCallException('A get method call cannot have arguments.')
@@ -52,6 +54,11 @@ class BaseData
         return [];
     }
 
+    protected function getFieldFromMethodCallName(string $name): string
+    {
+        return $this->camelize(substr($name, 3));
+    }
+
     /**
      * @return string[]
      */
@@ -60,10 +67,22 @@ class BaseData
         return [];
     }
 
+    protected function isGetCall(string $name): bool
+    {
+        return strpos($name, 'get') === 0;
+    }
+
+    protected function isSetCall(string $name): bool
+    {
+        return strpos($name, 'set') === 0;
+    }
+
     private function camelize(string $responseKey): string
     {
-        $s = preg_replace_callback('/^([A-Z])(?=[a-z])/', 'strtolower', $responseKey);
-        $s = preg_replace_callback('/-(.)/', function (array $matches) {
+        $s = preg_replace_callback('/^[A-Z](?=[a-z])/', function (array $matches) {
+            return strtolower($matches[0]);
+        }, $responseKey);
+        $s = preg_replace_callback('/[-_](.)/', function (array $matches) {
             return strtoupper($matches[1]);
         }, $s);
 
