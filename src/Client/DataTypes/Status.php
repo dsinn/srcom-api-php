@@ -43,9 +43,7 @@ class Status extends BaseData
 
     public function setVerifyDate(?string $verifyDateString): self
     {
-        if ($verifyDateString) {
-            $this->verifyDate = $this->parseDateTime($verifyDateString);
-        }
+        $this->verifyDate = $verifyDateString ? $this->parseDateTime($verifyDateString) : null;
         return $this;
     }
 

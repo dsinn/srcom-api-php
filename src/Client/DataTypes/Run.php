@@ -139,9 +139,7 @@ class Run extends BaseData
 
     public function setDate(?string $dateString): self
     {
-        if ($dateString) {
-            $this->date = $this->parseDate($dateString);
-        }
+        $this->date = $dateString ? $this->parseDate($dateString) : null;
         return $this;
     }
 
@@ -179,9 +177,7 @@ class Run extends BaseData
 
     public function setSplits(?array $splitsData): self
     {
-        if ($splitsData) {
-            $this->splits = new Splits($splitsData);
-        }
+        $this->splits = $splitsData ? new Splits($splitsData) : null;
         return $this;
     }
 
@@ -193,9 +189,7 @@ class Run extends BaseData
 
     public function setSubmitted(?string $submittedString): self
     {
-        if ($submittedString) {
-            $this->submitted = $this->parseDateTime($submittedString);
-        }
+        $this->submitted = $submittedString ? $this->parseDateTime($submittedString) : null;
         return $this;
     }
 
