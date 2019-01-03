@@ -14,7 +14,7 @@ class Status extends BaseData
     /** @var \DateTime */
     private $verifyDate;
 
-    public function getExaminer(): string
+    public function getExaminer(): ?string
     {
         return $this->examiner;
     }
@@ -24,12 +24,12 @@ class Status extends BaseData
         return $this->status;
     }
 
-    public function getVerifyDate(): \DateTime
+    public function getVerifyDate(): ?\DateTime
     {
         return $this->verifyDate;
     }
 
-    public function setExaminer(string $examiner): self
+    public function setExaminer(?string $examiner): self
     {
         $this->examiner = $examiner;
         return $this;
@@ -41,9 +41,11 @@ class Status extends BaseData
         return $this;
     }
 
-    public function setVerifyDate(string $verifyDateString): self
+    public function setVerifyDate(?string $verifyDateString): self
     {
-        $this->verifyDate = $this->parseDateTime($verifyDateString);
+        if ($verifyDateString) {
+            $this->verifyDate = $this->parseDateTime($verifyDateString);
+        }
         return $this;
     }
 

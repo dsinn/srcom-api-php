@@ -8,6 +8,7 @@ use Dsinn\SrcomApi\Client\Validator\ISO8601DateValidator;
 use Dsinn\SrcomApi\Client\Validator\PositiveIntValidator;
 use Dsinn\SrcomApi\Client\Validator\SetOfValuesValidator;
 use Dsinn\SrcomApi\Client\Validator\StringValidator;
+use Dsinn\SrcomApi\Client\Validator\ValidatorInterface;
 
 class Leaderboards extends Getter
 {
@@ -18,9 +19,34 @@ class Leaderboards extends Getter
      * @return Leaderboard
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getByCategory(string $game, string $category, array $options = []): Leaderboard
+    public function getByGameCategory(string $game, string $category, array $options = []): Leaderboard
     {
-        $this->validateOptions($options, [
+        $this->validateOptions($options, $this->getValidationOptions());
+
+        return new Leaderboard($this->httpClient->request(
+            'GET',
+            "/leaderboards/{$game}/category/{$category}",
+            ['query' => $options]
+        )['data']);
+    }
+
+    public function getByLevelCategory(string $game, string $level, string $category, array $options = []): Leaderboard
+    {
+        $this->validateOptions($options, $this->getValidationOptions());
+
+        return new Leaderboard($this->httpClient->request(
+            'GET',
+            "/leaderboards/{$game}/level/{$level}/{$category}",
+            ['query' => $options]
+        )['data']);
+    }
+
+    /**
+     * @return ValidatorInterface[]
+     */
+    private function getValidationOptions(): array
+    {
+        return [
             'top' => new PositiveIntValidator(),
             'platform' => new StringValidator(),
             'region' => new StringValidator(),
@@ -29,12 +55,6 @@ class Leaderboards extends Getter
             'timing' => new SetOfValuesValidator(Times::getTypes()),
             'date' => new ISO8601DateValidator(),
             'var-*' => new StringValidator(),
-        ]);
-
-        return new Leaderboard($this->httpClient->request(
-            'GET',
-            "/leaderboards/{$game}/category/{$category}",
-            ['query' => $options]
-        )['data']);
+        ];
     }
 }

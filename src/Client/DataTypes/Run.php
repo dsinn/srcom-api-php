@@ -46,7 +46,7 @@ class Run extends BaseData
         return $this->comment;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
@@ -137,9 +137,11 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setDate(string $dateString): self
+    public function setDate(?string $dateString): self
     {
-        $this->date = $this->parseDate($dateString);
+        if ($dateString) {
+            $this->date = $this->parseDate($dateString);
+        }
         return $this;
     }
 
