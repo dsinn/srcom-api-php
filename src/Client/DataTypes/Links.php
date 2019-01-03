@@ -3,7 +3,7 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class Links implements \ArrayAccess, \Iterator
 {
-    /** @var string[] */
+    /** @var URI[] */
     private $uris = [];
 
     public function __construct(array $data)
@@ -11,7 +11,7 @@ class Links implements \ArrayAccess, \Iterator
         $i = 0;
         foreach ($data as $link)
         {
-            $this->uris[isset($link['rel']) ? $link['rel'] : $i++] = $link['uri'];
+            $this->uris[isset($link['rel']) ? $link['rel'] : $i++] = new URI($link);
         }
     }
 
@@ -40,7 +40,7 @@ class Links implements \ArrayAccess, \Iterator
         return isset($this->uris[$offset]);
     }
 
-    public function offsetGet($offset): string
+    public function offsetGet($offset): URI
     {
         return $this->uris[$offset];
     }

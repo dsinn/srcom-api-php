@@ -50,12 +50,22 @@ JSON
         self::assertSame(PlayerCount::TYPE_EXACTLY, $category->getPlayers()->getType());
         self::assertSame(2, $category->getPlayers()->getValue());
         self::assertSame(false, $category->getMiscellaneous());
-        self::assertSame([
-            'self' => 'https://www.speedrun.com/api/v1/categories/jkh473tf',
-            'game' => 'https://www.speedrun.com/api/v1/games/i2grf78a',
-            'variables' => 'https://www.speedrun.com/api/v1/games/i2grf78a/variables',
-            'runs' => 'https://www.speedrun.com/api/v1/runs?category=jkh473tf',
-        ], $category->getLinks()->getAll());
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/categories/jkh473tf',
+            $category->getLinks()['self']->getUri()
+        );
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/games/i2grf78a',
+            $category->getLinks()['game']->getUri()
+        );
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/games/i2grf78a/variables',
+            $category->getLinks()['variables']->getUri()
+        );
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/runs?category=jkh473tf',
+            $category->getLinks()['runs']->getUri()
+        );
     }
 
     /**

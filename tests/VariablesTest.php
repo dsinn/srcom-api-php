@@ -79,9 +79,13 @@ JSON
         self::assertSame('zdbx1h88', $variable->getValues()->getDefaultKey());
 
         self::assertSame(true, $variable->getIsSubcategory());
-        self::assertSame([
-            'self' => 'https://www.speedrun.com/api/v1/variables/wzx7q875',
-            'game' => 'https://www.speedrun.com/api/v1/games/zate4l10',
-        ], $variable->getLinks()->getAll());
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/variables/wzx7q875',
+            $variable->getLinks()['self']->getUri()
+        );
+        self::assertSame(
+            'https://www.speedrun.com/api/v1/games/zate4l10',
+            $variable->getLinks()['game']->getUri()
+        );
     }
 }
