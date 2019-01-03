@@ -2,6 +2,7 @@
 namespace Dsinn\SrcomApi\Client\Getters;
 
 use Dsinn\SrcomApi\Client\Pagination;
+use Dsinn\SrcomApi\Client\Validator\ValidatorInterface;
 use GuzzleHttp\ClientInterface;
 
 abstract class Getter
@@ -40,5 +41,45 @@ abstract class Getter
         return array_map(function (array $objectData) use ($dataClass) {
             return new $dataClass($objectData);
         }, $response['data']);
+    }
+
+    /**
+     * @param string[] $userOptions
+     * @param ValidatorInterface[] $validOptions
+     */
+    protected function validateOptions(array $userOptions, array $validOptions): void
+    {
+        /** @var ValidatorInterface[] $regexValidOptions */
+        $regexValidOptions = array_combine(
+            array_map([$this, 'globToRegex'], array_keys($validOptions)),
+            array_values($validOptions)
+        );
+
+        $unexpectedKeys = [];
+
+        foreach ($userOptions as $key => $value) {
+            foreach ($regexValidOptions as $regex => $validator) {
+                if (preg_match($regex, $key)) {
+                    if (!$validator->validate($key, $value)) {
+                        trigger_error($validator->getErrorMessage($key, $value), E_USER_WARNING);
+                    }
+                    continue 2;
+                }
+            }
+            $unexpectedKeys[] = $key;
+        }
+
+        if ($unexpectedKeys) {
+            trigger_error(sprintf(
+                'Valid options are [%s], but found [%s].',
+                implode(', ', array_keys($validOptions)),
+                implode(', ', $unexpectedKeys)
+            ), E_USER_WARNING);
+        }
+    }
+
+    private function globToRegex(string $glob): string
+    {
+        return '/^' . str_replace('*', '.*', $glob) . '$/';
     }
 }

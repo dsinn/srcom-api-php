@@ -11,7 +11,7 @@ class VariablesTest extends TestCase
      */
     public function testGet()
     {
-        $client = $this->getClient(<<<JSON
+        $client = $this->getClient(<<<'JSON'
 {
   "data": {
     "id": "wzx7q875",

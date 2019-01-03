@@ -11,7 +11,7 @@ class CategoriesTest extends TestCase
      */
     public function testGet()
     {
-        $client = $this->getClient(<<<JSON
+        $client = $this->getClient(<<<'JSON'
 {
   "data": {
     "id": "jkh473tf",
@@ -63,7 +63,7 @@ JSON
      */
     public function testGetVariables()
     {
-        $client = $this->getClient(<<<JSON
+        $client = $this->getClient(<<<'JSON'
 {
   "data":[
     {
@@ -175,7 +175,7 @@ JSON
      */
     public function testGetRecords()
     {
-        $client = $this->getClient(<<<JSON
+        $client = $this->getClient(<<<'JSON'
 {
   "data":[
     {

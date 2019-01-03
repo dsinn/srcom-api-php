@@ -41,6 +41,14 @@ class Times extends BaseData
         return $this->realtimeNoloads;
     }
 
+    /**
+     * @return string[]
+     */
+    public static function getTypes(): array
+    {
+        return ['realtime', 'realtime_noloads', 'ingame'];
+    }
+
     public function setIngameT(int $seconds): self
     {
         $this->ingame = new Time($seconds);

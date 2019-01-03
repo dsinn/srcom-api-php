@@ -73,6 +73,15 @@ class Leaderboard extends BaseData
         return $this->timing;
     }
 
+    public static function getTimingTypes(): array
+    {
+        return [
+            self::TIMING_RTA,
+            self::TIMING_RTA_LOADLESS,
+            self::TIMING_IGT,
+        ];
+    }
+
     /**
      * @return string[]
      */
