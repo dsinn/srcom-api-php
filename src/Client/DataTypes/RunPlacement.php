@@ -24,10 +24,17 @@ class RunPlacement extends BaseData
         return $this;
     }
 
-    public function setRun(array $runData): self
+    public function setRun(Run $run): self
     {
-        $this->run = new Run($runData);
+        $this->run = $run;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'run' => Run::class,
+        ];
     }
 
     protected static function getRequiredFields(): array

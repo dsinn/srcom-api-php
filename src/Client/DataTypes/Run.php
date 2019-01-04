@@ -61,7 +61,7 @@ class Run extends BaseData
         return $this->id;
     }
 
-    public function getLinks(): Links
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
@@ -161,29 +161,31 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setLinks(array $linkData): self
+    public function setLinks(?array $linkData): self
     {
         $this->links = new Links($linkData);
         return $this;
     }
 
-    public function setPlayers(array $playersData): self
+    /**
+     * @param Player[] $players
+     * @return $this
+     */
+    public function setPlayers(array $players): self
     {
-        $this->players = array_map(function (array $playerData) {
-            return new Player($playerData);
-        }, $playersData);
+        $this->players = $players;
         return $this;
     }
 
-    public function setSplits(?array $splitsData): self
+    public function setSplits(?Splits $splits): self
     {
-        $this->splits = $splitsData ? new Splits($splitsData) : null;
+        $this->splits = $splits;
         return $this;
     }
 
-    public function setStatus(array $statusData): self
+    public function setStatus(Status $status): self
     {
-        $this->status = new Status($statusData);
+        $this->status = $status;
         return $this;
     }
 
@@ -193,15 +195,15 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setSystem(array $systemData): self
+    public function setSystem(System $system): self
     {
-        $this->system = new System($systemData);
+        $this->system = $system;
         return $this;
     }
 
-    public function setTimes(array $timesData): self
+    public function setTimes(Times $times): self
     {
-        $this->times = new Times($timesData);
+        $this->times = $times;
         return $this;
     }
 
@@ -217,10 +219,22 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setVideos(array $videoData): self
+    public function setVideos(Videos $videos): self
     {
-        $this->videos = new Videos($videoData);
+        $this->videos = $videos;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'players' => [Player::class],
+            'splits' => Splits::class,
+            'status' => Status::class,
+            'system' => System::class,
+            'times' => Times::class,
+            'videos' => Videos::class,
+        ];
     }
 
     protected static function getRequiredFields(): array
@@ -241,7 +255,6 @@ class Run extends BaseData
             'system',
             'splits',
             'values',
-            'links',
         ];
     }
 }

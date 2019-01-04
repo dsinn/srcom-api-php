@@ -94,9 +94,9 @@ class Variable extends BaseData
         return $this;
     }
 
-    public function setLinks(array $linkData): self
+    public function setLinks(Links $links): self
     {
-        $this->links = new Links($linkData);
+        $this->links = $links;
         return $this;
     }
 
@@ -118,9 +118,9 @@ class Variable extends BaseData
         return $this;
     }
 
-    public function setScope(array $scopeData): self
+    public function setScope(Scope $scope): self
     {
-        $this->scope = new Scope($scopeData);
+        $this->scope = $scope;
         return $this;
     }
 
@@ -130,10 +130,19 @@ class Variable extends BaseData
         return $this;
     }
 
-    public function setValues(array $valueData): self
+    public function setValues(VariableValueSet $values): self
     {
-        $this->values = new VariableValueSet($valueData);
+        $this->values = $values;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'links' => Links::class,
+            'scope' => Scope::class,
+            'values' => VariableValueSet::class
+        ];
     }
 
     protected static function getRequiredFields(): array

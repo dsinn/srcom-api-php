@@ -7,15 +7,20 @@ class BaseData
 
     public function __construct(array $data)
     {
-        if ($missingKeys = array_diff_key(array_flip(self::getRequiredFields()), $data)) {
+        if ($missingKeys = array_diff_key(array_flip(static::getRequiredFields()), $data)) {
             trigger_error(
-                'Missing the following required fields: ' . implode(',', $missingKeys),
+                'Missing the following required fields: ' . implode(', ', array_keys($missingKeys)),
                 E_USER_WARNING
             );
         }
 
-        foreach (array_diff_key($data, array_flip(self::getDeprecatedFields())) as $key => $value) {
-            $this->{'set' . ucfirst($this->camelize($key))}($value);
+        foreach (array_diff_key($data, array_flip(static::getDeprecatedFields())) as $key => $value) {
+            $this->{'set' . ucfirst($this->camelize($key))}(
+                $this->tryMappingToClass(
+                    $key,
+                    in_array($key, static::getEmbeds()) ? $value['data'] : $value
+                )
+            );
         }
     }
 
@@ -49,7 +54,26 @@ class BaseData
         }
     }
 
+    /**
+     * @return string[]|array[]
+     */
+    protected static function getClassMapping(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
     protected static function getDeprecatedFields(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return string[]
+     */
+    protected static function getEmbeds(): array
     {
         return [];
     }
@@ -97,5 +121,21 @@ class BaseData
         }, $s);
 
         return $s;
+    }
+
+    private function tryMappingToClass(string $key, $value)
+    {
+        if (is_null($value) || !($class = static::getClassMapping()[$key] ?? null)) {
+            return $value;
+        }
+
+        if (is_array($class)) {
+            $class = array_pop($class);
+            return array_map(function (array $value) use ($class) {
+                return new $class($value);
+            }, $value);
+        }
+
+        return new $class($value);
     }
 }

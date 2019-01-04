@@ -13,28 +13,34 @@ class Videos extends BaseData
         return $this->links;
     }
 
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function setLinks(array $linkData): self
+    public function setLinks(Links $links): self
     {
-        $this->links = new Links($linkData);
+        $this->links = $links;
         return $this;
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'links' => Links::class,
+        ];
     }
 
     protected static function getRequiredFields(): array
     {
         return [
             'links',
-            'text',
         ];
     }
 }

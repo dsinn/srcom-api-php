@@ -136,11 +136,13 @@ class Leaderboard extends BaseData
         return $this;
     }
 
-    public function setRuns(array $runsData): self
+    /**
+     * @param RunPlacement[] $runs
+     * @return $this
+     */
+    public function setRuns(array $runs): self
     {
-        $this->runs = array_map(function (array $runData) {
-            return new RunPlacement($runData);
-        }, $runsData);
+        $this->runs = $runs;
         return $this;
     }
 
@@ -166,6 +168,13 @@ class Leaderboard extends BaseData
     {
         $this->weblink = $weblink;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'runs' => [RunPlacement::class],
+        ];
     }
 
     protected static function getRequiredFields(): array

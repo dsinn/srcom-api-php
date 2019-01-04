@@ -69,9 +69,9 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setLinks(array $linkData): self
+    public function setLinks(Links $links): self
     {
-        $this->links = new Links($linkData);
+        $this->links = $links;
         return $this;
     }
 
@@ -87,9 +87,9 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setPlayers(array $playerCountData): self
+    public function setPlayers(PlayerCount $players): self
     {
-        $this->players = new PlayerCount($playerCountData);
+        $this->players = $players;
         return $this;
     }
 
@@ -109,6 +109,14 @@ class Category extends BaseData
     {
         $this->weblink = $weblink;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'links' => Links::class,
+            'players' => PlayerCount::class,
+        ];
     }
 
     protected static function getRequiredFields(): array

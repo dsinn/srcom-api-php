@@ -52,7 +52,6 @@ class Status extends BaseData
         return [
             'status',
             'examiner',
-            'verified',
         ];
     }
 }
