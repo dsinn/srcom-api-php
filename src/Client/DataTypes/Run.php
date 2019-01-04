@@ -161,9 +161,9 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setLinks(?array $linkData): self
+    public function setLinks(?Links $links): self
     {
-        $this->links = new Links($linkData);
+        $this->links = $links;
         return $this;
     }
 
@@ -229,6 +229,7 @@ class Run extends BaseData
     {
         return [
             'date' => \DateTime::class,
+            'links' => Links::class,
             'players' => [Player::class],
             'splits' => Splits::class,
             'status' => Status::class,

@@ -3,6 +3,7 @@ namespace Dsinn\SrcomApi;
 
 use Dsinn\SrcomApi\Client\Getters\Categories;
 use Dsinn\SrcomApi\Client\Getters\Leaderboards;
+use Dsinn\SrcomApi\Client\Getters\Series;
 use Dsinn\SrcomApi\Client\Getters\Variables;
 use GuzzleHttp\ClientInterface;
 
@@ -26,6 +27,11 @@ class Client
     public function leaderboards(): Leaderboards
     {
         return $this->getObject('leaderboards', Leaderboards::class);
+    }
+
+    public function series(): Series
+    {
+        return $this->getObject('series', Series::class);
     }
 
     public function variables(): Variables

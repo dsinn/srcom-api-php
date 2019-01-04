@@ -25,9 +25,9 @@ class VariableValue extends BaseData
         return $this->rules;
     }
 
-    public function setFlags(array $flagData): self
+    public function setFlags(?VariableValueFlags $flags): self
     {
-        $this->flags = new VariableValueFlags($flagData);
+        $this->flags = $flags;
         return $this;
     }
 
@@ -41,6 +41,13 @@ class VariableValue extends BaseData
     {
         $this->rules = $rules;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'flags' => VariableValueFlags::class,
+        ];
     }
 
     protected static function getRequiredFields(): array
