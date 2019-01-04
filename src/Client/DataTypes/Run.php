@@ -137,9 +137,9 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setDate(?string $dateString): self
+    public function setDate(?\DateTime $date): self
     {
-        $this->date = $dateString ? $this->parseDate($dateString) : null;
+        $this->date = $date;
         return $this;
     }
 
@@ -189,9 +189,9 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setSubmitted(?string $submittedString): self
+    public function setSubmitted(?\DateTime $submitted): self
     {
-        $this->submitted = $submittedString ? $this->parseDateTime($submittedString) : null;
+        $this->submitted = $submitted;
         return $this;
     }
 
@@ -228,9 +228,11 @@ class Run extends BaseData
     protected static function getClassMapping(): array
     {
         return [
+            'date' => \DateTime::class,
             'players' => [Player::class],
             'splits' => Splits::class,
             'status' => Status::class,
+            'submitted' => \DateTime::class,
             'system' => System::class,
             'times' => Times::class,
             'videos' => Videos::class,

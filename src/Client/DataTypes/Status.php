@@ -41,10 +41,17 @@ class Status extends BaseData
         return $this;
     }
 
-    public function setVerifyDate(?string $verifyDateString): self
+    public function setVerifyDate(?\DateTime $verifyDate): self
     {
-        $this->verifyDate = $verifyDateString ? $this->parseDateTime($verifyDateString) : null;
+        $this->verifyDate = $verifyDate;
         return $this;
+    }
+
+    protected static function getClassMapping(): array
+    {
+        return [
+            'verify-date' => \DateTime::class,
+        ];
     }
 
     protected static function getRequiredFields(): array
