@@ -9,6 +9,8 @@ use GuzzleHttp\ClientInterface;
 
 class Client
 {
+    const DEFAULT_BASE_URI = 'https://www.speedrun.com/api/v1/';
+
     /** @var ClientInterface  */
     private $httpClient;
     private $objectCache;

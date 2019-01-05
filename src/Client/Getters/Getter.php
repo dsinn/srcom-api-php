@@ -4,6 +4,7 @@ namespace Dsinn\SrcomApi\Client\Getters;
 use Dsinn\SrcomApi\Client\Pagination;
 use Dsinn\SrcomApi\Client\Validator\ValidatorInterface;
 use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class Getter
 {
@@ -50,6 +51,11 @@ abstract class Getter
         return array_map(function (array $objectData) use ($dataClass) {
             return new $dataClass($objectData);
         }, $response['data']);
+    }
+
+    protected function getResponseBody(ResponseInterface $response): array
+    {
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**

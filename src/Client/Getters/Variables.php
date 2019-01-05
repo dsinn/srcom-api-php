@@ -12,6 +12,8 @@ class Variables extends Getter
      */
     public function get(string $id): Variable
     {
-        return new Variable($this->httpClient->request('GET', "/variables/{$id}")['data']);
+        return new Variable($this->getResponseBody(
+            $this->httpClient->request('GET', "variables/{$id}")
+        )['data']);
     }
 }

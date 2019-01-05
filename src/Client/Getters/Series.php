@@ -12,10 +12,10 @@ class Series extends Getter
      */
     public function get(string $id): \Dsinn\SrcomApi\Client\DataTypes\Series
     {
-        return new SeriesData($this->httpClient->request(
+        return new SeriesData($this->getResponseBody($this->httpClient->request(
             'GET',
-            "/series/{$id}",
+            "series/{$id}",
             $this->getEmbedOptions(SeriesData::getEmbeds())
-        )['data']);
+        ))['data']);
     }
 }

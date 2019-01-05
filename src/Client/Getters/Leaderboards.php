@@ -23,22 +23,30 @@ class Leaderboards extends Getter
     {
         $this->validateOptions($options, $this->getValidationOptions());
 
-        return new Leaderboard($this->httpClient->request(
+        return new Leaderboard($this->getResponseBody($this->httpClient->request(
             'GET',
-            "/leaderboards/{$game}/category/{$category}",
+            "leaderboards/{$game}/category/{$category}",
             array_merge_recursive(['query' => $options], $this->getEmbedOptions(Leaderboard::getEmbeds()))
-        )['data']);
+        ))['data']);
     }
 
+    /**
+     * @param string $game
+     * @param string $level
+     * @param string $category
+     * @param array $options
+     * @return Leaderboard
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getByLevelCategory(string $game, string $level, string $category, array $options = []): Leaderboard
     {
         $this->validateOptions($options, $this->getValidationOptions());
 
-        return new Leaderboard($this->httpClient->request(
+        return new Leaderboard($this->getResponseBody($this->httpClient->request(
             'GET',
-            "/leaderboards/{$game}/level/{$level}/{$category}",
+            "leaderboards/{$game}/level/{$level}/{$category}",
             array_merge_recursive(['query' => $options], $this->getEmbedOptions(Leaderboard::getEmbeds()))
-        )['data']);
+        ))['data']);
     }
 
     /**

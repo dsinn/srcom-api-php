@@ -22,11 +22,11 @@ class Categories extends Getter
      */
     public function get(string $id): Category
     {
-        return new Category($this->httpClient->request(
+        return new Category($this->getResponseBody($this->httpClient->request(
             'GET',
-            "/categories/{$id}",
+            "categories/{$id}",
             $this->getEmbedOptions(Category::getEmbeds())
-        )['data']);
+        ))['data']);
     }
 
     /**
@@ -44,14 +44,14 @@ class Categories extends Getter
     {
         return array_map(function (array $variableData) {
             return new Variable($variableData);
-        }, $this->httpClient->request(
+        }, $this->getResponseBody($this->httpClient->request(
             'GET',
-            "/categories/{$id}/variables",
+            "categories/{$id}/variables",
             array_merge_recursive(
                 ['query' => compact('orderby', 'direction')],
                 $this->getEmbedOptions(Category::getEmbeds())
             )
-        )['data']);
+        ))['data']);
     }
 
     /**
@@ -64,17 +64,17 @@ class Categories extends Getter
      */
     public function getRecords(string $id, int $top = 3, bool $skipEmpty = false, Pagination &$pagination = null)
     {
-        $response = $this->httpClient->request(
+        $body = $this->getResponseBody($this->httpClient->request(
             'GET',
-            "/categories/{$id}/records",
+            "categories/{$id}/records",
             array_merge_recursive(
                 ['query' => compact('top') + ['skip-empty' => $skipEmpty]],
                 $this->getEmbedOptions(array_merge(Category::getEmbeds(), Leaderboard::getEmbeds()))
             )
-        );
+        ));
 
         return array_map(function (array $leaderboardData) {
             return new Leaderboard($leaderboardData);
-        }, $response['data']);
+        }, $body['data']);
     }
 }
