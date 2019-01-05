@@ -5,11 +5,20 @@ class BaseData
 {
     protected $unexpectedData = [];
 
-    public function __construct(array $data)
+    public function __construct($data)
     {
+        if (is_string($data)) {
+            // @TODO Find better solution for "shallow" embeds
+            if (method_exists($this, 'setId')) {
+                return $this->setId($data);
+            } else {
+                throw new \TypeError("Unsupported constructor argument \"{$data}\" for class " . static::class);
+            }
+        }
+
         if ($missingKeys = array_diff_key(array_flip(static::getRequiredFields()), $data)) {
             trigger_error(
-                'Missing the following required fields: ' . implode(', ', array_keys($missingKeys)),
+                static::class . ' missing the following required fields: ' . implode(', ', array_keys($missingKeys)),
                 E_USER_WARNING
             );
         }
@@ -18,7 +27,7 @@ class BaseData
             $this->{'set' . ucfirst($this->camelize($key))}(
                 $this->tryMappingToClass(
                     $key,
-                    in_array($key, static::getEmbeds()) ? $value['data'] : $value
+                    in_array($key, static::getEmbeds()) && isset($value['data']) ? $value['data'] : $value
                 )
             );
         }
@@ -55,6 +64,14 @@ class BaseData
     }
 
     /**
+     * @return string[]
+     */
+    public static function getEmbeds(): array
+    {
+        return [];
+    }
+
+    /**
      * @return string[]|array[]
      */
     protected static function getClassMapping(): array
@@ -66,14 +83,6 @@ class BaseData
      * @return string[]
      */
     protected static function getDeprecatedFields(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return string[]
-     */
-    protected static function getEmbeds(): array
     {
         return [];
     }
@@ -119,13 +128,29 @@ class BaseData
             return $value;
         }
 
-        if (is_array($class)) {
-            $class = array_pop($class);
-            return array_map(function (array $value) use ($class) {
-                return new $class($value);
-            }, $value);
-        }
+        try {
+            if (is_array($class)) {
+                $class = array_pop($class);
+                return array_map(function (array $value) use ($class) {
+                    return new $class($value);
+                }, $value);
+            }
 
-        return new $class($value);
+            if (in_array($key, static::getEmbeds()) && is_array($value) && empty($value)) {
+                // Empty embed
+                return null;
+            }
+
+            return new $class($value);
+        } catch (\TypeError $e) {
+            throw new \TypeError(sprintf(
+                "%s\nClass %s attempted to instantiate %s on key %s with value %s",
+                $e->getMessage(),
+                static::class,
+                $class,
+                $key,
+                print_r($value, true)
+            ), $e->getCode(), $e);
+        }
     }
 }

@@ -7,13 +7,13 @@ class Leaderboard extends BaseData
     const TIMING_RTA_LOADLESS = 'realtime_noloads';
     const TIMING_IGT = 'ingame';
 
-    /** @var string */
+    /** @var Category */
     private $category;
     /** @var string */
     private $emulators;
-    /** @var string */
+    /** @var Game */
     private $game;
-    /** @var string */
+    /** @var Level */
     private $level;
     /** @var string */
     private $platform;
@@ -30,9 +30,22 @@ class Leaderboard extends BaseData
     /** @var string */
     private $weblink;
 
-    public function getCategory(): string
+    public function getCategory(): Category
     {
         return $this->category;
+    }
+
+    public static function getEmbeds(): array
+    {
+        return [
+            'game',
+            'category',
+            'level',
+            'players',
+            'regions',
+            'platforms',
+            'variables',
+        ];
     }
 
     public function getEmulators(): string
@@ -40,12 +53,12 @@ class Leaderboard extends BaseData
         return $this->emulators;
     }
 
-    public function getGame(): string
+    public function getGame(): Game
     {
         return $this->game;
     }
 
-    public function getLevel(): string
+    public function getLevel(): ?Level
     {
         return $this->level;
     }
@@ -90,7 +103,7 @@ class Leaderboard extends BaseData
         return $this->values;
     }
 
-    public function isVideoOnly(): bool
+    public function getVideoOnly(): bool
     {
         return $this->videoOnly;
     }
@@ -100,7 +113,7 @@ class Leaderboard extends BaseData
         return $this->weblink;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
         return $this;
@@ -112,13 +125,13 @@ class Leaderboard extends BaseData
         return $this;
     }
 
-    public function setGame(string $game): self
+    public function setGame(Game $game): self
     {
         $this->game = $game;
         return $this;
     }
 
-    public function setLevel(?string $level): self
+    public function setLevel(?Level $level): self
     {
         $this->level = $level;
         return $this;
@@ -173,6 +186,9 @@ class Leaderboard extends BaseData
     protected static function getClassMapping(): array
     {
         return [
+            'category' => Category::class,
+            'level' => Level::class,
+            'game' => Game::class,
             'runs' => [RunPlacement::class],
         ];
     }

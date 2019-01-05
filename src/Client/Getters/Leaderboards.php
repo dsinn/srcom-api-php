@@ -26,7 +26,7 @@ class Leaderboards extends Getter
         return new Leaderboard($this->httpClient->request(
             'GET',
             "/leaderboards/{$game}/category/{$category}",
-            ['query' => $options]
+            array_merge_recursive(['query' => $options], $this->getEmbedOptions(Leaderboard::getEmbeds()))
         )['data']);
     }
 
@@ -37,7 +37,7 @@ class Leaderboards extends Getter
         return new Leaderboard($this->httpClient->request(
             'GET',
             "/leaderboards/{$game}/level/{$level}/{$category}",
-            ['query' => $options]
+            array_merge_recursive(['query' => $options], $this->getEmbedOptions(Leaderboard::getEmbeds()))
         )['data']);
     }
 

@@ -6,6 +6,8 @@ class Category extends BaseData
     const TYPE_PER_GAME = 'per-game';
     const TYPE_PER_LEVEL = 'per-level';
 
+    /** @var Game */
+    private $game;
     /** @var string */
     private $id;
     /** @var Links */
@@ -20,8 +22,23 @@ class Category extends BaseData
     private $rules;
     /** @var string */
     private $type;
+    /** @var VariableValueSet[] */
+    private $variables;
     /** @var string */
     private $weblink;
+
+    public static function getEmbeds(): array
+    {
+        return [
+            'game',
+            'variables',
+        ];
+    }
+
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
 
     public function getId(): string
     {
@@ -58,9 +75,23 @@ class Category extends BaseData
         return $this->type;
     }
 
+    /**
+     * @return VariableValueSet[]
+     */
+    public function getVariables(): array
+    {
+        return $this->variables;
+    }
+
     public function getWeblink(): string
     {
         return $this->weblink;
+    }
+
+    public function setGame(Game $game): self
+    {
+        $this->game = $game;
+        return $this;
     }
 
     public function setId(string $id): self
@@ -105,6 +136,16 @@ class Category extends BaseData
         return $this;
     }
 
+    /**
+     * @param VariableValueSet[] $variables
+     * @return $this
+     */
+    public function setVariables(array $variables): self
+    {
+        $this->variables = $variables;
+        return $this;
+    }
+
     public function setWeblink(string $weblink): self
     {
         $this->weblink = $weblink;
@@ -114,8 +155,10 @@ class Category extends BaseData
     protected static function getClassMapping(): array
     {
         return [
+            'game' => Game::class,
             'links' => Links::class,
             'players' => PlayerCount::class,
+            'variables' => [VariableValueSet::class],
         ];
     }
 

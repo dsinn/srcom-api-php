@@ -16,6 +16,15 @@ abstract class Getter
     }
 
     /**
+     * @param string[] $embeds
+     * @return string[][]
+     */
+    protected function getEmbedOptions(array $embeds)
+    {
+        return ['query' => ['embed' => implode(',', array_unique($embeds))]];
+    }
+
+    /**
      * @param string $dataClass
      * @param string $uri
      * @param array $queryParams

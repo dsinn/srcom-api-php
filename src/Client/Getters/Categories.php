@@ -22,7 +22,11 @@ class Categories extends Getter
      */
     public function get(string $id): Category
     {
-        return new Category($this->httpClient->request('GET', "/categories/{$id}")['data']);
+        return new Category($this->httpClient->request(
+            'GET',
+            "/categories/{$id}",
+            $this->getEmbedOptions(Category::getEmbeds())
+        )['data']);
     }
 
     /**
@@ -43,7 +47,10 @@ class Categories extends Getter
         }, $this->httpClient->request(
             'GET',
             "/categories/{$id}/variables",
-            ['query' => compact('orderby', 'direction')]
+            array_merge_recursive(
+                ['query' => compact('orderby', 'direction')],
+                $this->getEmbedOptions(Category::getEmbeds())
+            )
         )['data']);
     }
 
@@ -60,7 +67,10 @@ class Categories extends Getter
         $response = $this->httpClient->request(
             'GET',
             "/categories/{$id}/records",
-            ['query' => compact('top') + ['skip-empty' => $skipEmpty]]
+            array_merge_recursive(
+                ['query' => compact('top') + ['skip-empty' => $skipEmpty]],
+                $this->getEmbedOptions(array_merge(Category::getEmbeds(), Leaderboard::getEmbeds()))
+            )
         );
 
         return array_map(function (array $leaderboardData) {

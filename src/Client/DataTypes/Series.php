@@ -30,9 +30,16 @@ class Series extends BaseData
         return $this->assets;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
+    }
+
+    public static function getEmbeds(): array
+    {
+        return [
+            'moderators',
+        ];
     }
 
     public function getId(): string
@@ -120,13 +127,6 @@ class Series extends BaseData
             'links' => Links::class,
             'moderators' => [User::class],
             'names' => Names::class,
-        ];
-    }
-
-    protected static function getEmbeds(): array
-    {
-        return [
-            'moderators',
         ];
     }
 

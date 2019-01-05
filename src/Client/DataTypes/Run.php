@@ -9,13 +9,13 @@ class Run extends BaseData
     private $comment;
     /** @var \DateTime */
     private $date;
-    /** @var string */
+    /** @var Game */
     private $game;
     /** @var string */
     private $id;
     /** @var Links */
     private $links;
-    /** @var string */
+    /** @var Level */
     private $level;
     /** @var Player[] */
     private $players;
@@ -51,7 +51,7 @@ class Run extends BaseData
         return $this->date;
     }
 
-    public function getGame(): string
+    public function getGame(): Game
     {
         return $this->game;
     }
@@ -66,7 +66,7 @@ class Run extends BaseData
         return $this->links;
     }
 
-    public function getLevel(): ?string
+    public function getLevel(): ?Level
     {
         return $this->level;
     }
@@ -143,7 +143,7 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setGame(string $game): self
+    public function setGame(Game $game): self
     {
         $this->game = $game;
         return $this;
@@ -155,7 +155,7 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setLevel(?string $level): self
+    public function setLevel(?Level $level): self
     {
         $this->level = $level;
         return $this;
@@ -229,6 +229,8 @@ class Run extends BaseData
     {
         return [
             'date' => \DateTime::class,
+            'game' => Game::class,
+            'level' => Level::class,
             'links' => Links::class,
             'players' => [Player::class],
             'splits' => Splits::class,

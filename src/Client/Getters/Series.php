@@ -15,7 +15,7 @@ class Series extends Getter
         return new SeriesData($this->httpClient->request(
             'GET',
             "/series/{$id}",
-            ['query' => ['embed' => 'moderators']]
+            $this->getEmbedOptions(SeriesData::getEmbeds())
         )['data']);
     }
 }

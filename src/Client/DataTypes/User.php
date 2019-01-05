@@ -72,7 +72,7 @@ class User extends BaseData
         return $this->role;
     }
 
-    public function getSignup(): \DateTime
+    public function getSignup(): ?\DateTime
     {
         return $this->signup;
     }
@@ -144,7 +144,7 @@ class User extends BaseData
         return $this;
     }
 
-    public function setSignup(\DateTime $signup): self
+    public function setSignup(?\DateTime $signup): self
     {
         $this->signup = $signup;
         return $this;

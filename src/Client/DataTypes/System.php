@@ -10,7 +10,7 @@ class System extends BaseData
     /** @var string */
     private $region;
 
-    public function isEmulated(): bool
+    public function getEmulated(): bool
     {
         return $this->emulated;
     }
