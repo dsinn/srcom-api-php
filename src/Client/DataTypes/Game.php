@@ -216,6 +216,7 @@ class Game extends BaseData
     protected static function getClassMapping(): array
     {
         return [
+            'created' => \DateTime::class,
             'names' => Names::class,
             'release-date' => \DateTime::class,
             'ruleset' => Ruleset::class,

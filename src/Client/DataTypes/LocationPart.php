@@ -30,6 +30,13 @@ class LocationPart extends BaseData
         return $this;
     }
 
+    protected static function getClassMapping(): array
+    {
+        return [
+            'names' => Names::class,
+        ];
+    }
+
     protected static function getRequiredFields(): array
     {
         return [
