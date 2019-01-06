@@ -3,7 +3,7 @@ namespace Dsinn\SrcomApi\Client\DataTypes;
 
 class Run extends BaseData
 {
-    /** @var string */
+    /** @var Category */
     private $category;
     /** @var string */
     private $comment;
@@ -17,7 +17,7 @@ class Run extends BaseData
     private $links;
     /** @var Level */
     private $level;
-    /** @var Player[] */
+    /** @var User[] */
     private $players;
     /** @var Splits */
     private $splits;
@@ -36,7 +36,7 @@ class Run extends BaseData
     /** @var string */
     private $weblink;
 
-    public function getCategory(): string
+    public function getCategory(): Category
     {
         return $this->category;
     }
@@ -49,6 +49,18 @@ class Run extends BaseData
     public function getDate(): ?\DateTime
     {
         return $this->date;
+    }
+
+    public static function getEmbeds(): array
+    {
+        return [
+            'game',
+            'category',
+            'level',
+            'players',
+            'region',
+            'platform',
+        ];
     }
 
     public function getGame(): Game
@@ -71,6 +83,9 @@ class Run extends BaseData
         return $this->level;
     }
 
+    /**
+     * @return User[]
+     */
     public function getPlayers(): array
     {
         return $this->players;
@@ -112,7 +127,7 @@ class Run extends BaseData
     /**
      * @return Videos
      */
-    public function getVideos(): Videos
+    public function getVideos(): ?Videos
     {
         return $this->videos;
     }
@@ -125,7 +140,7 @@ class Run extends BaseData
         return $this->weblink;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
         return $this;
@@ -168,7 +183,7 @@ class Run extends BaseData
     }
 
     /**
-     * @param Player[] $players
+     * @param User[] $players
      * @return $this
      */
     public function setPlayers(array $players): self
@@ -219,7 +234,7 @@ class Run extends BaseData
         return $this;
     }
 
-    public function setVideos(Videos $videos): self
+    public function setVideos(?Videos $videos): self
     {
         $this->videos = $videos;
         return $this;
@@ -228,11 +243,12 @@ class Run extends BaseData
     protected static function getClassMapping(): array
     {
         return [
+            'category' => Category::class,
             'date' => \DateTime::class,
             'game' => Game::class,
             'level' => Level::class,
             'links' => Links::class,
-            'players' => [Player::class],
+            'players' => [User::class],
             'splits' => Splits::class,
             'status' => Status::class,
             'submitted' => \DateTime::class,

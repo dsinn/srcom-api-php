@@ -7,6 +7,8 @@ class Names extends BaseData
     private $international;
     /** @var string */
     private $japanese;
+    /** @var string */
+    private $twitch;
 
     public function getInternational(): string
     {
@@ -18,6 +20,11 @@ class Names extends BaseData
         return $this->japanese;
     }
 
+    public function getTwitch(): ?string
+    {
+        return $this->twitch;
+    }
+
     public function setInternational(string $international): self
     {
         $this->international = $international;
@@ -27,6 +34,12 @@ class Names extends BaseData
     public function setJapanese(?string $japanese): self
     {
         $this->japanese = $japanese;
+        return $this;
+    }
+
+    public function setTwitch(?string $twitch): self
+    {
+        $this->twitch = $twitch;
         return $this;
     }
 

@@ -65,7 +65,7 @@ class Category extends BaseData
         return $this->players;
     }
 
-    public function getRules(): string
+    public function getRules(): ?string
     {
         return $this->rules;
     }
@@ -124,7 +124,7 @@ class Category extends BaseData
         return $this;
     }
 
-    public function setRules(string $rules): self
+    public function setRules(?string $rules): self
     {
         $this->rules = $rules;
         return $this;

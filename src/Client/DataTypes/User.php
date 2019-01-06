@@ -18,6 +18,8 @@ class User extends BaseData
     private $links;
     /** @var Location */
     private $location;
+    /** @var string */
+    private $name;
     /** @var Names */
     private $names;
     /** @var NameStyle */
@@ -55,6 +57,11 @@ class User extends BaseData
     public function getLocation(): ?Location
     {
         return $this->location;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getNames(): Names
@@ -126,6 +133,12 @@ class User extends BaseData
         return $this;
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
     public function setNames(Names $names): self
     {
         $this->names = $names;
@@ -193,25 +206,6 @@ class User extends BaseData
             'twitch' => URI::class,
             'twitter' => URI::class,
             'youtube' => URI::class,
-        ];
-    }
-
-    protected static function getRequiredFields(): array
-    {
-        return [
-            'id',
-            'names',
-            'weblink',
-            'name-style',
-            'role',
-            'signup',
-            'location',
-            'twitch',
-            'hitbox',
-            'youtube',
-            'twitter',
-            'speedrunslive',
-            'links',
         ];
     }
 }

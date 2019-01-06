@@ -24,6 +24,18 @@ class Status extends BaseData
         return $this->status;
     }
 
+    /**
+     * @return string[]
+     */
+    public static function getStatuses(): array
+    {
+        return [
+            self::STATUS_NEW,
+            self::STATUS_VERIFIED,
+            self::STATUS_REJECTED,
+        ];
+    }
+
     public function getVerifyDate(): ?\DateTime
     {
         return $this->verifyDate;
@@ -58,7 +70,6 @@ class Status extends BaseData
     {
         return [
             'status',
-            'examiner',
         ];
     }
 }

@@ -36,11 +36,4 @@ class Videos extends BaseData
             'links' => Links::class,
         ];
     }
-
-    protected static function getRequiredFields(): array
-    {
-        return [
-            'links',
-        ];
-    }
 }
