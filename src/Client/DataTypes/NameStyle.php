@@ -27,6 +27,16 @@ class NameStyle extends BaseData
         return $this->colorTo;
     }
 
+    public function getDarkHTML(string $text): string
+    {
+        return $this->getHTML($text, 'getDark');
+    }
+
+    public function getLightHTML(string $text): string
+    {
+        return $this->getHTML($text, 'getLight');
+    }
+
     public function getStyle(): string
     {
         return $this->style;
@@ -70,5 +80,36 @@ class NameStyle extends BaseData
         return [
             'style',
         ];
+    }
+
+    private function getGradientHTML(string $text, string $fromString, string $toString)
+    {
+        return sprintf(
+            '<span style="%s">%s</span>',
+            "background-image: -webkit-linear-gradient(left, {$fromString}, {$toString});"
+                    . ' -webkit-background-clip: text; -webkit-text-fill-color: transparent;',
+            htmlspecialchars($text)
+        );
+    }
+
+    private function getHTML(string $text, string $colorStringFunc)
+    {
+        if ($this->color) {
+            return $this->getSolidHTML($text, call_user_func([$this->color, $colorStringFunc]));
+        }
+
+        $fromString = call_user_func([$this->colorFrom, $colorStringFunc]);
+        $toString = call_user_func([$this->colorTo, $colorStringFunc]);
+
+        if ($fromString === $toString) {
+            return $this->getSolidHTML($text, $fromString);
+        }
+
+        return $this->getGradientHTML($text, $fromString, $toString);
+    }
+
+    private function getSolidHTML(string $text, string $colorString)
+    {
+        return "<span style=\"color: {$colorString}\">" . htmlspecialchars($text) . '</span>';
     }
 }
