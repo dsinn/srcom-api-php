@@ -39,7 +39,7 @@ class User extends BaseData
     /** @var URI */
     private $youtube;
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -69,7 +69,7 @@ class User extends BaseData
         return $this->names;
     }
 
-    public function getNameStyle(): NameStyle
+    public function getNameStyle(): ?NameStyle
     {
         return $this->nameStyle;
     }
@@ -109,7 +109,7 @@ class User extends BaseData
         return $this->youtube;
     }
 
-    public function setId(string $id): self
+    public function setId(?string $id): self
     {
         $this->id = $id;
         return $this;

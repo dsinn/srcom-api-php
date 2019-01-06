@@ -28,6 +28,9 @@ class VariableValueSet extends BaseData
         return $this->values[$key];
     }
 
+    /**
+     * @return VariableValue[]
+     */
     public function getValues(): array
     {
         return $this->values;

@@ -17,6 +17,8 @@ class Leaderboard extends BaseData
     private $level;
     /** @var string */
     private $platform;
+    /** @var User[] */
+    private $players;
     /** @var string */
     private $region;
     /** @var RunPlacement[] */
@@ -25,6 +27,8 @@ class Leaderboard extends BaseData
     private $timing;
     /** @var string[] */
     private $values;
+    /** @var Variable[] */
+    private $variables;
     /** @var bool */
     private $videoOnly;
     /** @var string */
@@ -68,6 +72,14 @@ class Leaderboard extends BaseData
         return $this->platform;
     }
 
+    /**
+     * @return User[]|null
+     */
+    public function getPlayers(): ?array
+    {
+        return $this->players;
+    }
+
     public function getRegion(): string
     {
         return $this->region;
@@ -101,6 +113,14 @@ class Leaderboard extends BaseData
     public function getValues(): array
     {
         return $this->values;
+    }
+
+    /**
+     * @return Variable[]|null
+     */
+    public function getVariables(): ?array
+    {
+        return $this->variables;
     }
 
     public function getVideoOnly(): bool
@@ -143,6 +163,21 @@ class Leaderboard extends BaseData
         return $this;
     }
 
+    /**
+     * @param User[]|null $players
+     * @return Leaderboard
+     */
+    public function setPlayers(?array $players): self
+    {
+        $this->players = $players ? array_combine(
+            array_map(function (User $user) {
+                return $user->getId();
+            }, $players),
+            $players
+        ) : $players;
+        return $this;
+    }
+
     public function setRegion(?string $region): self
     {
         $this->region = $region;
@@ -171,6 +206,17 @@ class Leaderboard extends BaseData
         return $this;
     }
 
+    public function setVariables(?array $variables): self
+    {
+        $this->variables = $variables ? array_combine(
+            array_map(function (Variable $variable) {
+                return $variable->getId();
+            }, $variables),
+            $variables
+        ) : $variables;
+        return $this;
+    }
+
     public function setVideoOnly(bool $videoOnly): self
     {
         $this->videoOnly = $videoOnly;
@@ -189,7 +235,9 @@ class Leaderboard extends BaseData
             'category' => Category::class,
             'level' => Level::class,
             'game' => Game::class,
+            'players' => [User::class],
             'runs' => [RunPlacement::class],
+            'variables' => [Variable::class],
         ];
     }
 
