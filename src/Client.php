@@ -2,6 +2,7 @@
 namespace Dsinn\SrcomApi;
 
 use Dsinn\SrcomApi\Client\Getters\Categories;
+use Dsinn\SrcomApi\Client\Getters\Games;
 use Dsinn\SrcomApi\Client\Getters\Leaderboards;
 use Dsinn\SrcomApi\Client\Getters\Runs;
 use Dsinn\SrcomApi\Client\Getters\Series;
@@ -25,6 +26,11 @@ class Client
     public function categories(): Categories
     {
         return $this->getObject('categories', Categories::class);
+    }
+
+    public function games(): Games
+    {
+        return $this->getObject('games', Games::class);
     }
 
     public function leaderboards(): Leaderboards

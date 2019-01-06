@@ -158,7 +158,7 @@ class Category extends BaseData
             'game' => Game::class,
             'links' => Links::class,
             'players' => PlayerCount::class,
-            'variables' => [VariableValueSet::class],
+            'variables' => [Variable::class],
         ];
     }
 
