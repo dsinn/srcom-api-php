@@ -13,6 +13,11 @@ class Time
         $this->secondsElapsed = $secondsElapsed;
     }
 
+    public function getSecondsElapsed(): float
+    {
+        return $this->secondsElapsed;
+    }
+
     public function getString(): string
     {
         if (!$this->string) {

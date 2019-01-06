@@ -26,6 +26,17 @@ class Times extends BaseData
         }
     }
 
+    public function getLowestTime(): Time
+    {
+        $nonzeroTimes = array_filter([$this->ingame, $this->realtime, $this->realtimeNoloads], function (Time $time) {
+            return $time->getSecondsElapsed();
+        });
+        usort($nonzeroTimes, function (Time $t1, Time $t2) {
+            return $t2->getSecondsElapsed() <=> $t1->getSecondsElapsed();
+        });
+        return array_pop($nonzeroTimes);
+    }
+
     public function getIngame(): Time
     {
         return $this->ingame;
