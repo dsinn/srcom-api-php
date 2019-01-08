@@ -12,6 +12,14 @@ use Dsinn\SrcomApi\Client\Validator\ValidatorInterface;
 
 class Leaderboards extends Getter
 {
+    const FILTER_DATE = 'date';
+    const FILTER_EMULATORS = 'emulators';
+    const FILTER_PLATFORM = 'platform';
+    const FILTER_REGION = 'region';
+    const FILTER_TIMING = 'timing';
+    const FILTER_TOP = 'top';
+    const FILTER_VIDEO_ONLY = 'video-only';
+
     /**
      * @param string $game
      * @param string $category
@@ -55,13 +63,13 @@ class Leaderboards extends Getter
     private function getValidationOptions(): array
     {
         return [
-            'top' => new PositiveIntValidator(),
-            'platform' => new StringValidator(),
-            'region' => new StringValidator(),
-            'emulators' => new BoolValidator(),
-            'video-only' => new BoolValidator(),
-            'timing' => new SetOfValuesValidator(Times::getTypes()),
-            'date' => new ISO8601DateValidator(),
+            self::FILTER_TOP => new PositiveIntValidator(),
+            self::FILTER_PLATFORM => new StringValidator(),
+            self::FILTER_REGION => new StringValidator(),
+            self::FILTER_EMULATORS => new BoolValidator(),
+            self::FILTER_VIDEO_ONLY => new BoolValidator(),
+            self::FILTER_TIMING => new SetOfValuesValidator(Times::getTypes()),
+            self::FILTER_DATE => new ISO8601DateValidator(),
             'var-*' => new StringValidator(),
         ];
     }

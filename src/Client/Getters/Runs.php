@@ -9,10 +9,15 @@ use Dsinn\SrcomApi\Client\Validator\StringValidator;
 
 class Runs extends Getter
 {
+    const FILTER_CATEGORY = 'category';
+    const FILTER_EMULATED = 'emulated';
     const FILTER_EXAMINER = 'examiner';
     const FILTER_GAME = 'game';
     const FILTER_GUEST = 'guest';
     const FILTER_LEVEL = 'level';
+    const FILTER_PLATFORM = 'platform';
+    const FILTER_REGION = 'region';
+    const FILTER_STATUS = 'status';
     const FILTER_USER = 'user';
 
     const ORDER_BY_CATEGORY = 'category';
@@ -43,16 +48,16 @@ class Runs extends Getter
     ): array
     {
         $this->validateOptions($filterOptions, [
-            'user' => new StringValidator(),
-            'guest' => new StringValidator(),
-            'examiner' => new StringValidator(),
-            'game' => new StringValidator(),
-            'level' => new StringValidator(),
-            'category' => new StringValidator(),
-            'platform' => new StringValidator(),
-            'region' => new StringValidator(),
-            'emulated' => new BoolValidator(),
-            'status' => new SetOfValuesValidator(Status::getStatuses()),
+            self::FILTER_USER => new StringValidator(),
+            self::FILTER_GUEST => new StringValidator(),
+            self::FILTER_EXAMINER => new StringValidator(),
+            self::FILTER_GAME => new StringValidator(),
+            self::FILTER_LEVEL => new StringValidator(),
+            self::FILTER_CATEGORY => new StringValidator(),
+            self::FILTER_PLATFORM => new StringValidator(),
+            self::FILTER_REGION => new StringValidator(),
+            self::FILTER_EMULATED => new BoolValidator(),
+            self::FILTER_STATUS => new SetOfValuesValidator(Status::getStatuses()),
         ]);
 
         return array_map(function (array $runData) {
