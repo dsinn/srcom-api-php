@@ -6,7 +6,7 @@
     "type": "library",
     "require": {
         "ext-json": "*",
-        "php": ">=7.2",
+        "php": ">=7.1",
         "guzzlehttp/guzzle": "^6.0"
     },
     "autoload": {
