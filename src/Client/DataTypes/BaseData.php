@@ -1,7 +1,7 @@
 <?php
 namespace Dsinn\SrcomApi\Client\DataTypes;
 
-class BaseData
+class BaseData implements \JsonSerializable
 {
     protected $unexpectedData = [];
 
@@ -69,6 +69,12 @@ class BaseData
     public static function getEmbeds(): array
     {
         return [];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return array_diff_key(get_object_vars($this), array_flip(['unexpectedData']))
+                + $this->unexpectedData;
     }
 
     /**

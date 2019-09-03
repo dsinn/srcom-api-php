@@ -1,0 +1,338 @@
+<?php
+namespace Dsinn\SrcomApi\Tests;
+
+class DevelopersTest extends TestCase
+{
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testGetAll(): void
+    {
+        $client = $this->getClient(<<<'JSON'
+{
+  "data":[
+    {
+      "id":"pe137vzo",
+      "name":"\u0022Nikitia\u0022 Ghost_RUS",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/pe137vzo"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=pe137vzo"
+        }
+      ]
+    },
+    {
+      "id":"ne4d99em",
+      "name":".theprodukkt",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/ne4d99em"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=ne4d99em"
+        }
+      ]
+    },
+    {
+      "id":"1zkxmoej",
+      "name":"00-Evan",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/1zkxmoej"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=1zkxmoej"
+        }
+      ]
+    },
+    {
+      "id":"nergv56j",
+      "name":"08 Games",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/nergv56j"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=nergv56j"
+        }
+      ]
+    },
+    {
+      "id":"ne42gm6m",
+      "name":"10Ants Hill",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/ne42gm6m"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=ne42gm6m"
+        }
+      ]
+    },
+    {
+      "id":"rzj9376l",
+      "name":"10tons Entertainment",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/rzj9376l"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=rzj9376l"
+        }
+      ]
+    },
+    {
+      "id":"v6dldye2",
+      "name":"11 bit studios",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/v6dldye2"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=v6dldye2"
+        }
+      ]
+    },
+    {
+      "id":"jevmogek",
+      "name":"11Bits Studios",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/jevmogek"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=jevmogek"
+        }
+      ]
+    },
+    {
+      "id":"nerqqjzj",
+      "name":"1337 \u0026 senri",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/nerqqjzj"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=nerqqjzj"
+        }
+      ]
+    },
+    {
+      "id":"leqmpyzw",
+      "name":"13AM Games",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/leqmpyzw"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=leqmpyzw"
+        }
+      ]
+    },
+    {
+      "id":"yzodxleq",
+      "name":"14 Hours Productions",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/yzodxleq"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=yzodxleq"
+        }
+      ]
+    },
+    {
+      "id":"3zyl5d64",
+      "name":"1Button SARL",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/3zyl5d64"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=3zyl5d64"
+        }
+      ]
+    },
+    {
+      "id":"v6d3gme2",
+      "name":"1st Playable Production",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/v6d3gme2"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=v6d3gme2"
+        }
+      ]
+    },
+    {
+      "id":"v69wnxex",
+      "name":"1st Playable Productions",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/v69wnxex"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=v69wnxex"
+        }
+      ]
+    },
+    {
+      "id":"leqkxqew",
+      "name":"21strongbenjamin",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/leqkxqew"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=leqkxqew"
+        }
+      ]
+    },
+    {
+      "id":"1e7r8lz7",
+      "name":"2Cool",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/1e7r8lz7"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=1e7r8lz7"
+        }
+      ]
+    },
+    {
+      "id":"5mznpr6r",
+      "name":"2K Australia",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/5mznpr6r"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=5mznpr6r"
+        }
+      ]
+    },
+    {
+      "id":"1e7my2e7",
+      "name":"2K Boston",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/1e7my2e7"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=1e7my2e7"
+        }
+      ]
+    },
+    {
+      "id":"rzj02v6l",
+      "name":"2K China",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/rzj02v6l"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=rzj02v6l"
+        }
+      ]
+    },
+    {
+      "id":"dqe5pzvx",
+      "name":"2K Czech",
+      "links":[
+        {
+          "rel":"self",
+          "uri":"https://www.speedrun.com/api/v1/developers/dqe5pzvx"
+        },
+        {
+          "rel":"games",
+          "uri":"https://www.speedrun.com/api/v1/games?developer=dqe5pzvx"
+        }
+      ]
+    }
+  ],
+  "pagination":{
+    "offset":0,
+    "max":20,
+    "size":20,
+    "links":[
+      {
+        "rel":"next",
+        "uri":"https://www.speedrun.com/api/v1/developers?offset=20"
+      }
+    ]
+  }
+}
+JSON
+        );
+        $developers = $client->developers()->getAll();
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testGetByID(): void
+    {
+        $client = $this->getClient(<<<'JSON'
+{
+  "data":{
+    "id":"l4eprzro",
+    "name":"Arkane Studios",
+    "links":[
+      {
+        "rel":"self",
+        "uri":"https://www.speedrun.com/api/v1/developers/l4eprzro"
+      },
+      {
+        "rel":"games",
+        "uri":"https://www.speedrun.com/api/v1/games?developer=l4eprzro"
+      }
+    ]
+  }
+}
+JSON
+        );
+        $developer = $client->developers()->getById('foo');
+    }
+}

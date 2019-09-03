@@ -52,6 +52,23 @@ class Game extends BaseData
         return $this->developers;
     }
 
+    public static function getEmbeds(): array
+    {
+        return [
+            'levels',
+            'categories',
+            'moderators',
+            'gametypes',
+            'platforms',
+            'regions',
+            'genres',
+            'engines',
+            'developers',
+            'publishers',
+            'variables',
+        ];
+    }
+
     public function getEngines(): array
     {
         return $this->engines;
