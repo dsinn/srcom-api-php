@@ -6,7 +6,7 @@
     "type": "library",
     "require": {
         "ext-json": "*",
-        "php": ">=7.1",
+        "php": ">=7.4",
         "guzzlehttp/guzzle": "^6.0"
     },
     "autoload": {
@@ -16,7 +16,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^9.0"
     },
     "suggest": {
         "kevinrob/guzzle-cache-middleware": "To cache the responses."
